@@ -1,0 +1,69 @@
+model:
+  backbone: yolov5n  # YOLOv5-nano for Jetson Nano
+  input_size: 640
+  num_classes: 5  # fire, smoke, wall_clean, wall_dirty, wall_damaged
+  
+  # Custom head configuration
+  head:
+    type: AttentionHead
+    attention_type: CBAM  # Channel and Spatial Attention
+    reduction_ratio: 16
+    kernel_size: 7
+    
+  # Model hyperparameters
+  depth_multiple: 0.33  # YOLOv5n depth
+  width_multiple: 0.25  # YOLOv5n width
+  
+  anchors:
+    - [10,13, 16,30, 33,23]  # P3/8
+    - [30,61, 62,45, 59,119]  # P4/16
+    - [116,90, 156,198, 373,326]  # P5/32
+
+training:
+  batch_size: 16
+  epochs: 100
+  learning_rate: 0.01
+  momentum: 0.937
+  weight_decay: 0.0005
+  warmup_epochs: 3
+  
+  # Data augmentation
+  augmentation:
+    hsv_h: 0.015
+    hsv_s: 0.7
+    hsv_v: 0.4
+    degrees: 0.0
+    translate: 0.1
+    scale: 0.5
+    shear: 0.0
+    perspective: 0.0
+    flipud: 0.0
+    fliplr: 0.5
+    mosaic: 1.0
+    mixup: 0.0
+    
+  # Loss weights
+  loss:
+    box: 0.05
+    cls: 0.5
+    obj: 1.0
+    
+inference:
+  conf_thres: 0.25
+  iou_thres: 0.45
+  max_det: 300
+  
+# WandB 설정
+wandb:
+  enabled: true  # WandB 사용 여부
+  project: "FireSmoke"  # 프로젝트명
+  entity: "hyunwoo220"  # 사용자명 (이메일에서 @ 앞부분)
+  
+# 실험 설정
+experiment_name: "yolov5nano_cbam_v1"  # 실험 이름
+
+jetson:
+  tensorrt: true
+  fp16: true
+  int8: false
+  workspace_size: 2048  # MB
