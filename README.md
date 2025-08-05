@@ -134,6 +134,3 @@ python scripts/evaluate/evaluate.py --model outputs/checkpoints/best.pth
 
 
 ## 후속 작업
-AI Hub 데이터 다운로드 부터 학습 시키려면 어떤 순서로 진행해야 하는지 리스트업 하고 상세 내용
-알려줘. 실행해야 하는 스크립트와 명령어들까지 같이 제공해줬으면 좋겠어.
-마지막으로 하이퍼 파라미터 튜닝을 위해 파라미터들이 수정할떄 사용해야 하는 스크립트는 어떤 것인지 알려줘.
